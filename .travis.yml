@@ -4,3 +4,4 @@ before_install:
 
 script:
   - gforth fibonacci.4th
+  - gforth factorial.4th
