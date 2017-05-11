@@ -3,5 +3,4 @@ before_install:
   - sudo apt-get install gforth
 
 script:
-  - gforth fibonacci.4th
-  - gforth factorial.4th
+  - make
