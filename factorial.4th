@@ -4,7 +4,6 @@
   +LOOP ;
 
 : TEST
-  1 FACTORIAL 1 = IF ." OK" CR THEN
   2 FACTORIAL 2 = IF ." OK" CR THEN
   3 FACTORIAL 6 = IF ." OK" CR THEN
   BYE ;
