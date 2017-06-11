@@ -46,16 +46,14 @@ VARIABLE BOARD SIZE CELLS ALLOT
   BOARD
   + ;
 
-: SET-SQUARE  ( palyer index# -- )
-  INDEX-SQUARE ! ;
-
-: !SQUARE ( player row column -- )
-  + SET-SQUARE ;
+: !SQUARE ( status row column -- )
+  + INDEX-SQUARE ! ;
 
 : INITIALIZE ( -- )
-  SIZE 0
-  DO
-    EMPTY I SET-SQUARE
+  3 0 DO
+    3 0 DO
+      EMPTY I 3 J * !SQUARE
+    LOOP
   LOOP ;
 
 : FETCH-SQUARE
