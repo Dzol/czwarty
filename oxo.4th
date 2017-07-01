@@ -64,7 +64,7 @@ VARIABLE CROSS
     CROSS @ SWAP MOD 0 = IF
       ." X"
     ELSE
-      ." _"
+      ."  "
     THEN
   THEN ;
 
@@ -73,13 +73,33 @@ VARIABLE CROSS
 : C C3 C2 C1 ;
 
 : .ROW
-  .SQUARE .SQUARE .SQUARE CR ;
+  ." │ "
+  .SQUARE
+  ."  │ "
+  .SQUARE
+  ."  │ "
+  .SQUARE
+  ."  │"
+  CR ;
+
+: .TOP
+  ." ╭───┬───┬───╮" CR ;
+
+: .MIDDLE
+  ." ├───┼───┼───┤" CR ;
+
+: .BOTTOM
+  ." ╰───┴───┴───╯" CR ;
 
 : .GRID
 
+  .TOP
   A .ROW
+  .MIDDLE
   B .ROW
-  C .ROW ;
+  .MIDDLE
+  C .ROW
+  .BOTTOM ;
 
 : TEST
 
