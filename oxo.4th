@@ -56,6 +56,15 @@ TRUE PLAYER !
   5 13 23 WIN?
   OR OR ;
 
+: FINNISH? ( player -- boolean )
+  DUP DUP
+  DIAGONAL?
+  ROT
+  HORIZONTAL?
+  ROT
+  VERTICAL?
+  OR OR ;
+
 : MOVE
   SWAP DUP @ ROT * SWAP ! ;
 
@@ -109,9 +118,11 @@ TRUE PLAYER !
 : PLAY ( square -- )
   PLAYER @ IF
     NAUGHT SWAP MOVE
+    NAUGHT FINNISH? IF ." Naught won!" CR THEN
     FALSE PLAYER !
   ELSE
     CROSS SWAP MOVE
+    CROSS FINNISH? IF ." Crosses won!" CR THEN
     TRUE PLAYER !
   THEN
   .GRID ;
