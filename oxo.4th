@@ -68,30 +68,18 @@ VARIABLE CROSS
     THEN
   THEN ;
 
-\ : A A3 A2 A1 ;
-\ : B B3 B2 B1 ;
-\ : C C3 C2 C1 ;
+: A A3 A2 A1 ;
+: B B3 B2 B1 ;
+: C C3 C2 C1 ;
 
-\ : .ROW
-\   .SQUARE .SQUARE .SQUARE CR ;
+: .ROW
+  .SQUARE .SQUARE .SQUARE CR ;
 
 : .GRID
 
-  \ A .ROW
-  \ B .ROW
-  \ C .ROW
-
-  A1 .SQUARE
-  A2 .SQUARE
-  A3 .SQUARE CR
-
-  B1 .SQUARE
-  B2 .SQUARE
-  B3 .SQUARE CR
-
-  C1 .SQUARE
-  C2 .SQUARE
-  C3 .SQUARE CR ;
+  A .ROW
+  B .ROW
+  C .ROW ;
 
 : TEST
 
