@@ -16,6 +16,12 @@ VARIABLE CROSS
 1 NAUGHT !
 1 CROSS !
 
+: .NAUGHT
+  NAUGHT @ . ;
+
+: .CROSS
+  CROSS @ . ;
+
 : ZERO? 0 = ;
 
 : WIN?
@@ -51,18 +57,30 @@ VARIABLE CROSS
 
 : .SQUARE ( s -- )
   DUP
-  NAUGHT SWAP MOD 0 = IF
+  NAUGHT @ SWAP MOD 0 = IF
     ." O"
     DROP
   ELSE
-    CROSS SWAP MOD 0 = IF
+    CROSS @ SWAP MOD 0 = IF
       ." X"
     ELSE
       ." _"
     THEN
   THEN ;
 
+\ : A A3 A2 A1 ;
+\ : B B3 B2 B1 ;
+\ : C C3 C2 C1 ;
+
+\ : .ROW
+\   .SQUARE .SQUARE .SQUARE CR ;
+
 : .GRID
+
+  \ A .ROW
+  \ B .ROW
+  \ C .ROW
+
   A1 .SQUARE
   A2 .SQUARE
   A3 .SQUARE CR
@@ -93,6 +111,15 @@ VARIABLE CROSS
 
   NAUGHT VERTICAL? IF ." NEY!" ELSE ." YEY!" THEN CR
   CROSS VERTICAL? IF ." NEY!" ELSE ." YEY!" THEN CR
+
+  1 NAUGHT !
+  1 CROSS !
+
+  CROSS A1 PLAY
+  CROSS A3 PLAY
+  NAUGHT B2 PLAY
+  CROSS C1 PLAY
+  CROSS C3 PLAY
 
   .GRID ;
 
