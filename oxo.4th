@@ -17,8 +17,9 @@ VARIABLE CROSS
 
 TRUE PLAYER !
 
-1 NAUGHT !
-1 CROSS !
+: INITIALIZE ( -- )
+  1 NAUGHT !
+  1 CROSS ! ;
 
 : ZERO? ( # -- ? ) 0 = ;
 
@@ -112,16 +113,20 @@ TRUE PLAYER !
     NAUGHT SWAP MOVE
     NAUGHT FINNISH? IF
       ." Naught won!" CR
+      INITIALIZE
     THEN
     FALSE PLAYER !
   ELSE
     CROSS SWAP MOVE
     CROSS FINNISH? IF
       ." Crosses won!" CR
+      INITIALIZE
     THEN
     TRUE PLAYER !
   THEN
   CR .GRID ;
+
+INITIALIZE
 
 : TEST ( -- )
 
