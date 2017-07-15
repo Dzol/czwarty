@@ -20,43 +20,37 @@ TRUE PLAYER !
 1 NAUGHT !
 1 CROSS !
 
-: .NAUGHT
-  NAUGHT @ . ;
+: ZERO? ( # -- ? ) 0 = ;
 
-: .CROSS
-  CROSS @ . ;
-
-: ZERO? 0 = ;
-
-: WIN?
+: WIN? ( # # # -- ? )
   * * MOD ZERO? ;
 
-: DIAGONAL?
+: DIAGONAL? ( # -- ? )
   @ DUP
-  2 11 23 WIN?
+  A1 B2 C3 WIN?
   SWAP
-  5 11 17 WIN?
+  A3 B2 C1 WIN?
   OR ;
 
-: HORIZONTAL?
+: HORIZONTAL? ( # -- ? )
   @ DUP DUP
-  2 3 5 WIN?
+  A1 A2 A3 WIN?
   ROT
-  7 11 13 WIN?
+  B1 B2 B3 WIN?
   ROT
-  17 19 23 WIN?
+  C1 C2 C3 WIN?
   OR OR ;
 
-: VERTICAL?
+: VERTICAL?  ( # -- ? )
   @ DUP DUP
-  2 7 17 WIN?
+  A1 B1 C1 WIN?
   ROT
-  3 11 19 WIN?
+  A2 B2 C2 WIN?
   ROT
-  5 13 23 WIN?
+  A3 B3 C3 WIN?
   OR OR ;
 
-: FINNISH? ( player -- boolean )
+: FINNISH? ( # -- ? )
   DUP DUP
   DIAGONAL?
   ROT
@@ -65,10 +59,10 @@ TRUE PLAYER !
   VERTICAL?
   OR OR ;
 
-: MOVE
+: MOVE ( @ # -- ? )
   SWAP DUP @ ROT * SWAP ! ;
 
-: .SQUARE ( s -- )
+: .SQUARE ( # -- )
   DUP
   NAUGHT @ SWAP MOD 0 = IF
     ." O"
@@ -81,11 +75,11 @@ TRUE PLAYER !
     THEN
   THEN ;
 
-: A A3 A2 A1 ;
-: B B3 B2 B1 ;
-: C C3 C2 C1 ;
+: A ( -- # # # ) A3 A2 A1 ;
+: B ( -- # # # ) B3 B2 B1 ;
+: C ( -- # # # ) C3 C2 C1 ;
 
-: .ROW
+: .ROW ( # # # -- )
   ." │ "
   .SQUARE
   ."  │ "
@@ -95,18 +89,16 @@ TRUE PLAYER !
   ."  │"
   CR ;
 
-: .TOP
+: .TOP ( -- )
   ." ╭───┬───┬───╮" CR ;
 
-: .MIDDLE
+: .MIDDLE ( -- )
   ." ├───┼───┼───┤" CR ;
 
-: .BOTTOM
+: .BOTTOM ( -- )
   ." ╰───┴───┴───╯" CR ;
 
-: .GRID
-
-  CR
+: .GRID ( -- )
   .TOP
   A .ROW
   .MIDDLE
@@ -115,36 +107,60 @@ TRUE PLAYER !
   C .ROW
   .BOTTOM ;
 
-: PLAY ( square -- )
+: PLAY ( # -- )
   PLAYER @ IF
     NAUGHT SWAP MOVE
-    NAUGHT FINNISH? IF ." Naught won!" CR THEN
+    NAUGHT FINNISH? IF
+      ." Naught won!" CR
+    THEN
     FALSE PLAYER !
   ELSE
     CROSS SWAP MOVE
-    CROSS FINNISH? IF ." Crosses won!" CR THEN
+    CROSS FINNISH? IF
+      ." Crosses won!" CR
+    THEN
     TRUE PLAYER !
   THEN
-  .GRID ;
+  CR .GRID ;
 
-: TEST
+: TEST ( -- )
 
   NAUGHT A1 MOVE
   NAUGHT B2 MOVE
   NAUGHT C3 MOVE
 
-  NAUGHT DIAGONAL? IF ." YEY!" ELSE ." NEY!" THEN CR
+  NAUGHT DIAGONAL? IF
+    ." YEY!"
+  ELSE
+    ." NEY!"
+  THEN CR
 
-  CROSS DIAGONAL? IF ." NEY!" ELSE ." YEY!" THEN CR
+  CROSS DIAGONAL? IF
+    ." NEY!"
+  ELSE
+    ." YEY!"
+  THEN CR
 
   CROSS A1 MOVE
   CROSS A2 MOVE
   CROSS A3 MOVE
 
-  CROSS HORIZONTAL? IF ." YEY!" ELSE ." NEY!" THEN CR
+  CROSS HORIZONTAL? IF
+    ." YEY!"
+  ELSE
+    ." NEY!"
+  THEN CR
 
-  NAUGHT VERTICAL? IF ." NEY!" ELSE ." YEY!" THEN CR
-  CROSS VERTICAL? IF ." NEY!" ELSE ." YEY!" THEN CR
+  NAUGHT VERTICAL? IF
+    ." NEY!"
+  ELSE
+    ." YEY!"
+  THEN CR
+  CROSS VERTICAL? IF
+    ." NEY!"
+  ELSE
+    ." YEY!"
+  THEN CR
 
   1 NAUGHT !
   1 CROSS !
