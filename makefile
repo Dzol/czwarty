@@ -5,3 +5,4 @@ test:
 	gforth count.4th
 	gforth tictactoe.4th
 	gforth oxo.4th
+	gforth hopfield.4th
