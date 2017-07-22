@@ -10,6 +10,10 @@
 19 CONSTANT C2
 23 CONSTANT C3
 
+: A ( -- # # # ) A3 A2 A1 ;
+: B ( -- # # # ) B3 B2 B1 ;
+: C ( -- # # # ) C3 C2 C1 ;
+
 VARIABLE PLAYER
 
 VARIABLE NAUGHT
@@ -17,11 +21,52 @@ VARIABLE CROSS
 
 TRUE PLAYER !
 
-: INITIALIZE ( -- )
-  1 NAUGHT !
-  1 CROSS ! ;
+VARIABLE GRID 9 CELLS ALLOT
+
+: INITIALIZE-GRID
+  C3 C2 C1
+  B3 B2 B1
+  A3 A2 A1
+  9 0 DO
+    I CELLS
+    GRID
+    +
+    !
+  LOOP ;
+
+: PRINT-GRID
+  9 0 DO
+    I CELLS GRID + @ .
+  LOOP ;
 
 : ZERO? ( # -- ? ) 0 = ;
+
+: OCCUPIED?
+  @ SWAP MOD ZERO? ;
+
+: EMPTY?
+  DUP
+  NAUGHT OCCUPIED?
+  SWAP
+  CROSS OCCUPIED?
+  OR INVERT ;
+
+: FIRST-EMPTY-SQUARE
+  9 0 DO
+    I CELLS
+    GRID
+    + @
+    DUP EMPTY? IF
+      LEAVE
+    ELSE
+      DROP
+    THEN
+  LOOP ;
+
+: INITIALIZE ( -- )
+  INITIALIZE-GRID
+  1 NAUGHT !
+  1 CROSS ! ;
 
 : WIN? ( # # # -- ? )
   * * MOD ZERO? ;
@@ -76,10 +121,6 @@ TRUE PLAYER !
     THEN
   THEN ;
 
-: A ( -- # # # ) A3 A2 A1 ;
-: B ( -- # # # ) B3 B2 B1 ;
-: C ( -- # # # ) C3 C2 C1 ;
-
 : .ROW ( # # # -- )
   ." │ "
   .SQUARE
@@ -125,6 +166,12 @@ TRUE PLAYER !
     TRUE PLAYER !
   THEN
   CR .GRID ;
+
+: AI
+  FIRST-EMPTY-SQUARE PLAY ;
+
+: FU
+  PLAY AI ;
 
 INITIALIZE
 
