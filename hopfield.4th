@@ -28,9 +28,22 @@ VARIABLE WEIGHT SIZE SQUARE CELLS ALLOT
 : SET-WEIGHT ( column row value -- )
   -ROT GET-INDEX-NUMBER GET-INDEX-ADDRESS ! ;
 
+: 3DUP ( P: x y z R: -- P: x y z x y z R: )
+    DUP >R -ROT \ P: z x y R: z
+    DUP >R -ROT \ P: y z x R: z y
+    DUP >R -ROT \ P: x y z R: z y x
+    R> R> R>    \ P: x y z x y z R:
+;
+
 INITIALIZE
 1 1 6 SET-WEIGHT
 0 1 3 SET-WEIGHT
 1 0 3 SET-WEIGHT
 .WEIGHT
+
+: TEST-3DUP
+    5 3 2 3DUP - - 4 = IF ." Yey!" CR THEN ;
+
+TEST-3DUP
+
 BYE
