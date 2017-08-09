@@ -77,3 +77,16 @@ C THIRD PLAY
 ╰───┴───┴───╯
 NAUGHT WON! ok
 ```
+
+## Hopfield To-Do
+
+*Updating*
+
+-[ ] Second matrix for neuron states
+-[ ] Define a threshold constant
+-[ ] Updating algorithm
+
+*Training*
+
+-[ ] Input from a sequence of matrices
+-[ ] Write a training algorithm
