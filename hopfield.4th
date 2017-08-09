@@ -25,9 +25,6 @@ VARIABLE WEIGHT SIZE SQUARE CELLS ALLOT
     0 I GET-INDEX-ADDRESS !
   LOOP ;
 
-: SET-WEIGHT ( column row value -- )
-  -ROT GET-INDEX-NUMBER GET-INDEX-ADDRESS ! ;
-
 : 3DUP ( P: x y z R: -- P: x y z x y z R: )
     DUP >R -ROT \ P: z x y R: z
     DUP >R -ROT \ P: y z x R: z y
@@ -35,10 +32,18 @@ VARIABLE WEIGHT SIZE SQUARE CELLS ALLOT
     R> R> R>    \ P: x y z x y z R:
 ;
 
+: SET-WEIGHT ( column row value -- )
+    -ROT
+    3DUP
+    GET-INDEX-NUMBER GET-INDEX-ADDRESS !
+    SWAP
+    GET-INDEX-NUMBER GET-INDEX-ADDRESS !
+;
+
 INITIALIZE
 1 1 6 SET-WEIGHT
 0 1 3 SET-WEIGHT
-1 0 3 SET-WEIGHT
+2 0 9 SET-WEIGHT
 .WEIGHT
 
 : TEST-3DUP
