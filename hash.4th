@@ -1,0 +1,20 @@
+INCLUDE test.4th
+
+: BUILD-HASH-TABLE
+  CREATE
+  16 CELLS ALLOT
+  DOES> ;
+
+BUILD-HASH-TABLE TELEPHONE-NUMBERS
+
+\ 1024 TELEPHONE-NUMBERS 64 SET
+
+: SET ( table index value -- )
+    -ROT + ! ;
+
+TELEPHONE-NUMBERS 8 64 SET
+TELEPHONE-NUMBERS 8 + @ 64 ASSERT
+BYE
+
+\ does of tn ( key -- slot )
+\ set ( slot value -- ) 

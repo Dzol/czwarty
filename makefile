@@ -6,3 +6,4 @@ test:
 	gforth tictactoe.4th
 	gforth oxo.4th
 	gforth hopfield.4th
+	gforth hash.4th
