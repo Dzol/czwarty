@@ -7,3 +7,4 @@ test:
 	gforth oxo.4th
 	gforth hopfield.4th
 	gforth hash.4th
+	gforth prng.4th
